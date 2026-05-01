@@ -77,8 +77,13 @@ def validate_metrics(result_dir: Path, result: dict[str, Any]) -> None:
     assert_close("improvement", seed - best, improvement)
 
     candidate = (result_dir / result["artifacts"]["candidate_code"]).read_text(encoding="utf-8")
-    if "def quadrature_rule" not in candidate:
-        raise SystemExit("accepted candidate does not expose quadrature_rule")
+    expected_entrypoints = {
+        "quadrature-rule-optimization": "quadrature_rule",
+        "storage-arbitrage-policy": "dispatch_policy",
+    }
+    expected_entrypoint = expected_entrypoints.get(result["slug"])
+    if expected_entrypoint and f"def {expected_entrypoint}" not in candidate:
+        raise SystemExit(f"accepted candidate does not expose {expected_entrypoint}")
 
 
 def validate_result(result_dir: Path) -> None:
