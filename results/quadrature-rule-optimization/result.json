@@ -1,0 +1,45 @@
+{
+  "schema_version": "open-result/v1",
+  "slug": "quadrature-rule-optimization",
+  "title": "Quadrature rule optimization",
+  "domain": "Scientific Computing",
+  "status": "published",
+  "published_at": "2026-05-01",
+  "summary": "A one-dimensional numerical integration result where candidate quadrature rules are evaluated against analytic integrands and retained only when the measured objective improves.",
+  "problem_statement": "Find a compact quadrature rule that reduces integration error across a fixed suite of analytic functions while keeping the rule inspectable and replayable.",
+  "evaluation_contract": {
+    "summary": "Candidates are scored on a frozen analytic integrand suite using a single lower-is-better objective. Accepted candidates must improve the objective without changing the evaluation contract.",
+    "artifact": "artifacts/evaluation_contract.md"
+  },
+  "metrics": {
+    "seed": 688.676231,
+    "best": 114.514813,
+    "improvement": 574.161418,
+    "improvement_pct": 83.371749,
+    "units": "objective",
+    "direction": "lower_is_better",
+    "validation_status": "curated-surface"
+  },
+  "artifacts": {
+    "candidate_code": "artifacts/accepted_candidate.py",
+    "evolution_trace": "artifacts/evolution.json",
+    "metrics": "artifacts/metrics.json",
+    "provenance": "artifacts/provenance.json",
+    "plots": [
+      "assets/objective-curve.svg",
+      "assets/candidate-trace.svg"
+    ]
+  },
+  "website": {
+    "order": 1,
+    "card_label": "01 Scientific Computing",
+    "card_summary": "Candidate quadrature rules are evaluated against analytic integrands and retained only when the measured objective improves.",
+    "detail_path": "open-results/quadrature-rule-optimization/",
+    "surface_path": "evolther/quadrature-run/",
+    "display_labels": {
+      "seed": "Seed objective",
+      "best": "Best objective",
+      "improvement": "Objective reduction"
+    }
+  }
+}

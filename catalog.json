@@ -1,0 +1,36 @@
+{
+  "schema_version": "open-results-catalog/v1",
+  "generated_at": "2026-05-01T09:58:51.735449+00:00",
+  "results": [
+    {
+      "slug": "quadrature-rule-optimization",
+      "title": "Quadrature rule optimization",
+      "domain": "Scientific Computing",
+      "status": "published",
+      "published_at": "2026-05-01",
+      "summary": "A one-dimensional numerical integration result where candidate quadrature rules are evaluated against analytic integrands and retained only when the measured objective improves.",
+      "metrics": {
+        "seed": 688.676231,
+        "best": 114.514813,
+        "improvement": 574.161418,
+        "improvement_pct": 83.371749,
+        "units": "objective",
+        "direction": "lower_is_better",
+        "validation_status": "curated-surface"
+      },
+      "website": {
+        "order": 1,
+        "card_label": "01 Scientific Computing",
+        "card_summary": "Candidate quadrature rules are evaluated against analytic integrands and retained only when the measured objective improves.",
+        "detail_path": "open-results/quadrature-rule-optimization/",
+        "surface_path": "evolther/quadrature-run/",
+        "display_labels": {
+          "seed": "Seed objective",
+          "best": "Best objective",
+          "improvement": "Objective reduction"
+        }
+      },
+      "path": "results/quadrature-rule-optimization/result.json"
+    }
+  ]
+}

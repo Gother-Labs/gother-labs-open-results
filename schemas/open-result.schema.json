@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gotherlabs.com/schemas/open-result.schema.json",
+  "title": "Göther Labs Open Result",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "slug",
+    "title",
+    "domain",
+    "status",
+    "published_at",
+    "summary",
+    "problem_statement",
+    "evaluation_contract",
+    "metrics",
+    "artifacts",
+    "website"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "open-result/v1"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "domain": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": ["draft", "published", "archived"]
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "problem_statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evaluation_contract": {
+      "type": "object",
+      "required": ["summary", "artifact"],
+      "properties": {
+        "summary": { "type": "string" },
+        "artifact": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "metrics": {
+      "type": "object",
+      "required": ["seed", "best", "improvement", "units", "validation_status"],
+      "properties": {
+        "seed": { "type": "number" },
+        "best": { "type": "number" },
+        "improvement": { "type": "number" },
+        "improvement_pct": { "type": "number" },
+        "units": { "type": "string" },
+        "direction": { "enum": ["lower_is_better", "higher_is_better"] },
+        "validation_status": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "artifacts": {
+      "type": "object",
+      "required": ["candidate_code", "evolution_trace", "metrics", "provenance"],
+      "additionalProperties": true
+    },
+    "website": {
+      "type": "object",
+      "required": ["order", "card_label", "card_summary", "detail_path"],
+      "properties": {
+        "order": { "type": "integer" },
+        "card_label": { "type": "string" },
+        "card_summary": { "type": "string" },
+        "detail_path": { "type": "string" },
+        "surface_path": { "type": "string" },
+        "display_labels": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
+
