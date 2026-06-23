@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sample BESS Policy Challenge Report | Göther Labs</title>
+    <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" href="../../../assets/gother-mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../styles.css?v=home-proof-inline-v3">
+    <style>
+      .report-main { width:min(1080px, calc(100vw - 2rem)); margin:0 auto; padding:3rem 0; }
+      .report-grid { display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); border-left:1px solid var(--line); margin:1.5rem 0; }
+      .report-card { padding:1rem; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+      .report-card span { display:block; color:var(--muted); font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; }
+      .report-card strong { display:block; margin-top:.4rem; font-size:1.2rem; }
+      .report-section { margin-top:2rem; }
+      .report-table { width:100%; border-collapse:collapse; font-size:.94rem; }
+      .report-table th,.report-table td { border-bottom:1px solid var(--line); padding:.7rem; text-align:left; }
+      .report-figure { width:100%; border:1px solid var(--line); margin-top:1rem; }
+      @media (max-width:800px) { .report-grid { grid-template-columns:1fr 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main class="report-main">
+      <p class="eyebrow">Sample client deliverable</p>
+      <h1>BESS Policy Challenge report</h1>
+      <p class="intro">An anonymized example of the first offline evaluation: current policy baseline, accepted challenger, risk readout, constraints, and scenario-level dispatch evidence.</p>
+      <section class="report-grid" aria-label="Aggregate KPIs">
+        <div class="report-card"><span>Avg uplift</span><strong>€20.20/day</strong></div>
+        <div class="report-card"><span>Score reduction</span><strong>24.46</strong></div>
+        <div class="report-card"><span>Downside rate</span><strong>0%</strong></div>
+        <div class="report-card"><span>Breaches</span><strong>0</strong></div>
+      </section>
+      <section class="report-section">
+        <h2>Scenario evidence</h2>
+        <table class="report-table">
+          <thead><tr><th>Scenario</th><th>Split</th><th>Candidate profit</th><th>Uplift</th><th>Constraint</th></tr></thead>
+          <tbody>
+            <tr><td>omie_20240115</td><td>development</td><td>€82.95</td><td>€43.10</td><td>clean</td></tr><tr><td>omie_20240415</td><td>development</td><td>€61.79</td><td>€17.72</td><td>clean</td></tr><tr><td>omie_20240715</td><td>development</td><td>€321.23</td><td>€0.00</td><td>clean</td></tr><tr><td>omie_20241015</td><td>public_test</td><td>€148.11</td><td>€20.32</td><td>clean</td></tr><tr><td>omie_20250115</td><td>stress_tail</td><td>€257.74</td><td>€0.00</td><td>clean</td></tr><tr><td>omie_20250415</td><td>public_test</td><td>€143.93</td><td>€28.27</td><td>clean</td></tr><tr><td>omie_20250715</td><td>public_test</td><td>€300.37</td><td>€17.19</td><td>clean</td></tr><tr><td>omie_20250915</td><td>stress_tail</td><td>€410.29</td><td>€34.99</td><td>clean</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="report-section">
+        <h2>Dispatch trace</h2>
+        <p>Best uplift scenario: omie_20240115. Weakest uplift scenario: omie_20240715. Both remain visible in the artifact bundle.</p>
+        <img class="report-figure" src="../assets/dispatch-readout.svg" alt="Dispatch readout for a representative storage scenario">
+      </section>
+      <section class="report-section">
+        <h2>Recommended next step</h2>
+        <p>Run the same challenge against the prospect's current policy fixture, KPI weights, battery constraints, and approved scenario set. Keep the first paid evaluation offline and artifact-backed before discussing production integration.</p>
+      </section>
+    </main>
+  </body>
+</html>
