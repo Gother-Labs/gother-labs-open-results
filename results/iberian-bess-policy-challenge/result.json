@@ -1,0 +1,83 @@
+{
+  "schema_version": "result/v1",
+  "slug": "iberian-bess-policy-challenge",
+  "title": "Iberian BESS Policy Challenge",
+  "domain": "Energy Optimization",
+  "status": "published",
+  "published_at": "2026-06-23",
+  "summary": "A deterministic BESS dispatch policy is challenged against frozen Iberian day-ahead scenarios, commercial baselines, and a perfect-foresight upper bound with explicit risk and constraint readouts.",
+  "problem_statement": "Improve offline battery dispatch policy quality for OMIE day-ahead price scenarios without violating power, state-of-charge, efficiency, or terminal SOC constraints.",
+  "evaluation_contract": {
+    "summary": "Iberian BESS Policy Challenge v0.1: frozen 24-hour OMIE scenarios, commercial baselines, oracle upper bound, degradation proxy, downside metrics, and public-claim guardrails.",
+    "artifact": "artifacts/evaluation_contract.md"
+  },
+  "metrics": {
+    "seed": 72.544043,
+    "best": 48.086813,
+    "improvement": 24.45723,
+    "improvement_pct": 33.71363,
+    "units": "weighted_eur_like_score",
+    "direction": "lower_is_better",
+    "validation_status": "exact-replay-v0.1-contract",
+    "regret_mean_eur": 27.572071,
+    "regret_p95_eur": 55.951567,
+    "baseline_shortfall_eur": 0.0,
+    "oracle_capture_ratio": 0.874697,
+    "gross_margin_mean_eur": 215.799231,
+    "cycle_adjusted_margin_mean_eur": 206.482301,
+    "cycle_degradation_cost_mean_eur": 9.316931,
+    "downside_days": 0.0,
+    "downside_rate": 0.0,
+    "uplift_p5_eur": 0.0,
+    "uplift_p95_eur": 40.25954,
+    "constraint_breach_count": 0.0,
+    "cycles_used": 1.242257,
+    "uplift_vs_quantile_dispatch_baseline_mean_eur": 20.197299
+  },
+  "artifacts": {
+    "candidate_code": "artifacts/accepted_candidate.py",
+    "evolution_trace": "artifacts/evolution.json",
+    "metrics": "artifacts/metrics.json",
+    "provenance": "artifacts/provenance.json",
+    "plots": [
+      "assets/objective-curve.svg",
+      "assets/baseline-comparison.svg",
+      "assets/dispatch-readout.svg"
+    ],
+    "evaluation_contract_json": "artifacts/evaluation_contract.json",
+    "comparison": "artifacts/comparison.json",
+    "dispatch_trace": "artifacts/dispatch_trace.json",
+    "replay": "artifacts/replay.json",
+    "score_trace": "artifacts/score-trace.json",
+    "forecast_smoke": "artifacts/forecast_smoke.json"
+  },
+  "website": {
+    "order": 5,
+    "card_label": "05 Energy Optimization",
+    "card_summary": "A BESS dispatch policy is challenged offline against commercial baselines, oracle headroom, downside risk, degradation proxy, and hard constraint checks.",
+    "card_visual": "storage-arbitrage",
+    "card_metrics": [
+      {
+        "label": "Avg uplift vs baseline",
+        "value": "€20.20/day"
+      },
+      {
+        "label": "Constraint breaches",
+        "value": "0"
+      }
+    ],
+    "detail_path": "results/iberian-bess-policy-challenge/",
+    "surface_path": "results/iberian-bess-policy-challenge/run/",
+    "display_labels": {
+      "seed": "Seed score",
+      "best": "Accepted score",
+      "improvement": "Score reduction"
+    },
+    "score_note": "The score is a weighted euro-like benchmark objective over regret, baseline shortfall, degradation proxy, downside rate, and constraint penalties. Public sales claims should use it with the comparison and dispatch artifacts.",
+    "figure_captions": {
+      "assets/objective-curve.svg": "Seed, checked-in, and accepted policy scores under the v0.1 contract. Lower is better.",
+      "assets/baseline-comparison.svg": "Accepted policy readout across uplift, regret, cycle-adjusted margin, downside, and constraint breaches.",
+      "assets/dispatch-readout.svg": "Scenario-level dispatch trace: price, charge/discharge action, and state of charge."
+    }
+  }
+}
