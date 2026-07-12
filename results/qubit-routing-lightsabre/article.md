@@ -19,14 +19,20 @@ circuits. Hardware routing matters because a SWAP between adjacent physical
 qubits is normally decomposed into three CNOTs, so every extra SWAP directly
 inflates the added-CNOT readout.
 
+{{visual:gate-primer}}
+
 Qubit routing maps a logical circuit onto a physical device topology. When two
 logical qubits that need a two-qubit gate are not adjacent on the target
 topology, the router inserts SWAPs. Those SWAPs increase the compiled circuit
 cost; in this public benchmark the observable readout is added CNOT count.
 
+{{visual:routing-primer}}
+
 The optimization lever is intentionally narrow: the policy still inserts swaps
 to satisfy adjacency, but it can avoid paying a restore swap when the resulting
 logical-to-physical permutation is useful for the next routed interaction.
+
+{{visual:swap-saving}}
 
 ## 2. Evaluation contract
 
@@ -34,6 +40,8 @@ The evaluator compares the candidate against LightSABRE on 24 circuits crossed
 with three topology targets: Q20, Willow, and Heron-FEZ. In this report those
 names identify frozen coupling graphs: the physical adjacency constraint on
 which each logical two-qubit interaction must be routed.
+
+{{visual:topology-targets}}
 
 For candidate policy \(p\), the governed score is:
 
@@ -61,6 +69,8 @@ deterministic policy surface.
 
 See [accepted_candidate.rs](artifacts/accepted_candidate.rs).
 
+{{visual:implementation-code}}
+
 The accepted candidate changes routing-policy logic inside the fixed benchmark
 scaffold. The portfolio assets, topology targets, reference LightSABRE
 comparison, and replay validator remain unchanged.
@@ -71,6 +81,8 @@ The accepted replay reduced aggregate added CNOT count from LightSABRE's 308,076
 to 295,782 across the 72-case portfolio. The aggregate reduction is 12,294
 added CNOTs, and the case split is 31 wins, 6 ties, and 35 losses versus
 LightSABRE.
+
+{{visual:objective-summary-table}}
 
 ![Objective trace](assets/objective-curve.svg)
 
