@@ -401,17 +401,18 @@
       },
       "website": {
         "order": 5,
-        "card_label": "05 Energy Optimization",
-        "card_summary": "A BESS dispatch policy is challenged offline against commercial baselines, oracle headroom, downside risk, degradation proxy, and hard constraint checks.",
+        "featured": true,
+        "card_label": "Featured Energy Optimization",
+        "card_summary": "Replayable BESS challenger with 33.714% score reduction, €20.20/day mean uplift, and 0 constraint breaches across frozen OMIE scenarios.",
         "card_visual": "storage-arbitrage",
         "card_metrics": [
           {
-            "label": "Avg uplift vs baseline",
-            "value": "€20.20/day"
+            "label": "Score reduction",
+            "value": "33.714%"
           },
           {
-            "label": "Constraint breaches",
-            "value": "0"
+            "label": "Replay guardrail",
+            "value": "0 breaches"
           }
         ],
         "detail_path": "results/iberian-bess-policy-challenge/",
