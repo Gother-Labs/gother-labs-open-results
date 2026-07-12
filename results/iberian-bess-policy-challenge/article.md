@@ -4,7 +4,7 @@
 
 This result presents a replayable offline challenger for Iberian BESS dispatch. A deterministic policy portfolio is evaluated against frozen OMIE day-ahead scenarios, a commercial quantile baseline, and a perfect-foresight upper bound under one explicit battery contract.
 
-The accepted policy reduces the published score from 72.544043 to 48.086813 while preserving zero constraint breaches. The claim is intentionally bounded: this is evidence that Göther Labs can produce auditable improvement candidates and stress-case readouts for optimizer teams, not evidence of live trading readiness.
+The accepted policy reduces the published weighted euro-like score from a 72.544043 quantile-dispatch baseline to 48.086813 while preserving zero constraint breaches. That is an absolute delta of 24.457230 score units and a 33.71363% relative reduction. The claim is intentionally bounded: this is evidence that Göther Labs can produce auditable improvement candidates and stress-case readouts for optimizer teams, not evidence of live trading readiness.
 
 ## 1. Problem formulation
 
@@ -30,7 +30,7 @@ The public benchmark is the Iberian BESS Policy Challenge v0.1. It compares the 
 
 The seed quantile baseline scored 72.544043. The accepted policy portfolio scored 48.086813, a reduction of 24.45723 score units (33.71363%).
 
-The accepted policy produced 20.197299 EUR/day average uplift against the quantile comparison baseline, with 0.0 constraint breaches and a downside rate of 0.0.
+Across the eight frozen scenarios for the single 1 MW / 4 MWh battery, the accepted policy produced 20.197299 EUR/day mean gross simulated dispatch-profit uplift against the quantile comparison baseline, with 0.0 constraint breaches and a downside rate of 0.0. This uplift is before the degradation-cost proxy; the cycle-adjusted margin reports that proxy separately. The benchmark excludes intraday and reserve revenues, imbalance settlement, taxes, grid and portfolio effects, and production bidding costs.
 
 {{visual:commercial-readout}}
 
