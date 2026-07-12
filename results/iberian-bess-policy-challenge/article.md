@@ -30,7 +30,7 @@ The public benchmark is the Iberian BESS Policy Challenge v0.1. It compares the 
 
 The seed quantile baseline scored 72.544043. The accepted policy portfolio scored 48.086813, a reduction of 24.45723 score units (33.71363%).
 
-Across the eight frozen scenarios for the single 1 MW / 4 MWh battery, the accepted policy produced 20.197299 EUR/day mean gross simulated dispatch-profit uplift against the quantile comparison baseline, with 0.0 constraint breaches and a downside rate of 0.0. This uplift is before the degradation-cost proxy; the cycle-adjusted margin reports that proxy separately. The benchmark excludes intraday and reserve revenues, imbalance settlement, taxes, grid and portfolio effects, and production bidding costs.
+Across the eight frozen scenarios for the single 1 MW / 4 MWh battery, the accepted policy produced 20.197299 EUR/day mean gross simulated dispatch-profit uplift against the quantile comparison baseline, with 0.0 constraint breaches and a downside rate of 0.0. This uplift is before the degradation-cost proxy; the cycle-adjusted margin reports that proxy separately. The benchmark excludes intraday and reserve revenues, imbalance settlement, taxes, grid and portfolio effects, and production bidding constraints.
 
 {{visual:commercial-readout}}
 
