@@ -118,3 +118,6 @@ evaluation, not a replay of this result.
 Under that replay contract, the accepted Rust candidate reproduces 295,782
 aggregate added CNOTs, 12,294 fewer than the LightSABRE reference, with a
 31 / 6 / 35 win/tie/loss case split.
+
+The source bundle is available in the
+[Göther Labs results repository](https://github.com/Gother-Labs/gother-labs-results/tree/main/results/qubit-routing-lightsabre).
