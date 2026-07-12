@@ -76,7 +76,7 @@
       "improvement": "Absolute score delta",
       "improvement_pct": "Relative score reduction"
     },
-    "score_note": "The score is a weighted euro-like benchmark objective over regret, quantile-baseline shortfall, degradation proxy, downside rate, and constraint penalties. Mean uplift is gross simulated day-ahead dispatch-profit uplift before the degradation proxy; cycle-adjusted margin reports that proxy separately. Intraday and reserve revenues, imbalance settlement, taxes, grid and portfolio effects, and production bidding costs are excluded.",
+    "score_note": "The score is a weighted euro-like benchmark objective over regret, quantile-baseline shortfall, degradation proxy, downside rate, and constraint penalties. Mean uplift is gross simulated day-ahead dispatch-profit uplift before the degradation proxy; cycle-adjusted margin reports that proxy separately. Intraday and reserve revenues, imbalance settlement, taxes, grid and portfolio effects, and production bidding constraints are excluded.",
     "figure_captions": {
       "assets/objective-curve.svg": "Seed, checked-in, and accepted policy scores under the v0.1 contract. Lower is better.",
       "assets/baseline-comparison.svg": "Accepted policy readout across uplift, regret, cycle-adjusted margin, downside, and constraint breaches.",
