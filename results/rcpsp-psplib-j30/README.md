@@ -1,92 +1,93 @@
 # PSPLIB J30 scheduling benchmark
 
-[Published web article](https://www.gotherlabs.com/results/rcpsp-psplib-j30/) · [Structured metadata](result.json) · [Evaluation contract](artifacts/evaluation_contract.md) · [Accepted candidate](artifacts/accepted_candidate.py)
+[Published web article](https://www.gotherlabs.com/results/rcpsp-psplib-j30/) · [Structured metadata](result.json) · [Evaluation contract](artifacts/evaluation_contract.md) · [Accepted candidate](artifacts/accepted_candidate.py) · [Baseline diff](artifacts/baseline-to-evolther-2.diff)
 
 ## Abstract
 
-This note reports a deterministic dispatch rule for the Resource-Constrained Project Scheduling Problem (RCPSP). On a frozen public subset of PSPLIB J30, the evolutionary chain reduced the lower-is-better acceptance score from 14.312 to 12.087, a 15.55% reduction, while preserving feasibility on all 80 evaluated instances.
+This note reports a deterministic dispatch rule for the Resource-Constrained Project Scheduling Problem (RCPSP). On a frozen public subset of PSPLIB J30, the accepted score progressed from 14.312 at baseline to 12.087 with Evölther and 10.108 with Evölther 2.0. The current result is a 29.37% reduction from baseline and preserves feasibility on all 80 evaluated instances.
 
-For audit clarity, the public claim is the curated evolutionary chain, not a claim about the final isolated diagnostic run.
-
-The benchmark is deliberately external and bounded. Each portfolio instance has a proven optimal makespan, so the reported score measures schedule quality against a reference optimum rather than machine speed. The result should be read as a scheduling benchmark result on this fixed PSPLIB J30 subset, not as a claim that every RCPSP instance or production planning workflow is solved.
+The result history is expressed as accepted checkpoints rather than placed on a synthetic generation axis. Every portfolio instance has a proven optimal makespan, so the score measures schedule quality against a reference optimum rather than machine speed. This is a benchmark result on the fixed portfolio, not a universal scheduling claim.
 
 ## 1. Problem formulation
 
-RCPSP schedules a project made of activities, precedence constraints, and renewable resource limits. An activity can start only after its predecessors finish, and the resource demand of all activities active at the same time must fit within the available capacity. The schedule objective is the project makespan: the finish time of the terminal activity.
+RCPSP schedules activities subject to precedence constraints and renewable-resource limits. An activity may start only after all predecessors finish, and concurrent demand must remain within available capacity. The objective is the terminal makespan.
 
 $$
 C_{max}(S) = \max_i F_i
 $$
 
-where \(F_i\) is the finish time of activity \(i\) in schedule \(S\).
+![RCPSP precedence and scheduling primer](assets/schedule-network.svg)
 
-![RCPSP schedule network](assets/schedule-network.svg)
+![Actual baseline and Evölther 2.0 resource profiles for j3025_9](assets/resource-load.svg)
 
-![Renewable-resource load profile](assets/resource-load.svg)
-
-The evaluator uses serial schedule generation. At each step it finds eligible activities, scores each one with the candidate rule, asks the selector to choose one eligible activity, and places that activity at the earliest resource-feasible start time. This keeps the optimization surface narrow: the candidate changes priority logic, not the scheduling validator.
+The two resource profiles use the real j3025_9 schedules. Evölther 2.0 redistributes demand earlier without crossing any unchanged capacity limit and releases all resources 20 time units sooner. Evölther changes the priority policy, not the feasibility validator.
 
 ## 2. Benchmark and evaluation contract
 
-The public portfolio contains 80 frozen PSPLIB J30 single-mode instances. The selection is parameters \(\{1, 7, 13, 19, 25, 31, 37, 43\}\) crossed with instances 1 through 10. Every instance has 32 jobs including dummy source and sink jobs, renewable-resource capacities, precedence arcs, and a proven optimal makespan.
+The public portfolio contains 80 frozen PSPLIB J30 single-mode instances: parameters 1, 7, 13, 19, 25, 31, 37, and 43 crossed with instances 1 through 10. Every instance has 32 jobs including dummy source and sink activities and a proven optimal makespan.
 
-See [evaluation_contract.md](artifacts/evaluation_contract.md).
-
-For one instance \(k\), the evaluator computes a makespan gap against the proven optimum:
+For instance \(k\):
 
 $$
-g_k = 100 \cdot \frac{C_{max,k}^{candidate} - C_{max,k}^{optimal}}{C_{max,k}^{optimal}}.
+g_k = 100 \cdot \frac{C_{max,k}^{candidate} - C_{max,k}^{optimal}}{C_{max,k}^{optimal}}
 $$
 
-The retained objective combines portfolio mean quality with a tail-risk term:
+and the frozen, lower-is-better objective is:
 
 $$
 score = mean(g_k) + 0.35 \cdot p95(g_k) + feasibility\_penalty.
 $$
 
-A candidate must keep the feasibility penalty at zero. It must return finite priority scores, choose only eligible activities, schedule every activity exactly once, respect all precedences, and never exceed renewable resource capacities.
+See the complete [evaluation contract](artifacts/evaluation_contract.md).
 
 ## 3. Accepted candidate
 
-The accepted candidate keeps the serial schedule generator unchanged and changes only the activity-ranking policy. The final rule combines critical-path urgency, successor-unlocking pressure, bottleneck resource pressure, resource pressure, wait pressure, and remaining-work pressure. The selector then prefers activities that can start earlier and uses the priority score as the second-order decision.
+Evölther 2.0 keeps the serial schedule generator unchanged and replaces only the deterministic activity-ranking policy. The complete public code boundary is visible in the [baseline-to-Evölther 2.0 diff](artifacts/baseline-to-evolther-2.diff).
 
-See [accepted_candidate.py](artifacts/accepted_candidate.py).
-
-This is intentionally inspectable. The candidate is not a solver replacement or a hidden search procedure. It is a deterministic dispatch rule inside a fixed evaluator.
+Each feature was removed independently and the 80-instance portfolio replayed. Every ablation worsened the score; see [ablation.json](artifacts/ablation.json).
 
 ## 4. Results
 
-The public chain moved from the seed score of 14.312 to an accepted score of 12.087. Figure 3 shows the full scored-candidate trace; Figure 4 summarizes the reported seed-versus-accepted comparison.
+![Accepted checkpoints](assets/objective-curve.svg)
 
-![Best-so-far objective curve](assets/objective-curve.svg)
+![Baseline, Evölther, and Evölther 2.0 comparison](assets/benchmark-comparison.svg)
 
-![Baseline versus accepted benchmark comparison](assets/benchmark-comparison.svg)
+| Metric | Baseline | Evölther | Evölther 2.0 |
+|---|---:|---:|---:|
+| Acceptance score | 14.312 | 12.087 | 10.108 |
+| Mean gap | 7.13% | 6.04% | 5.01% |
+| P95 gap | 20.52% | 17.28% | 14.57% |
+| Exact optima | 23 / 80 | 19 / 80 | 27 / 80 |
+| Feasible schedules | 80 / 80 | 80 / 80 | 80 / 80 |
 
-![Schedule network and makespan readout](assets/schedule-network.svg)
+Evölther 2.0 is 29.37% below baseline and 16.37% below the previous public incumbent. Against baseline it improves 35 instances, leaves 27 unchanged, and worsens 18.
 
-Figure 5 translates the aggregate result into one real portfolio instance, `j3025_9`. Unlike the introductory schematic, it uses all executable jobs from the instance and the same instance's renewable-resource load buckets.
+![Task-level baseline and Evölther 2.0 comparison for j3025_9](assets/instance-comparison.svg)
 
-See [metrics.json](artifacts/metrics.json) and [score-trace.json](artifacts/score-trace.json).
+For j3025_9, makespan contracts from 112 to 92 against a proven optimum of 84. The reduction removes 71.4% of the baseline gap.
 
-Figure 6 keeps the accepted-candidate diagnostics separate from the chain objective. In absolute benchmark terms, this is not a 99% approximation claim: the mean accepted makespan is about 106.04% of the proven optimum, or roughly 94.31% if expressed as optimum divided by candidate makespan.
+![All 80 instance outcomes against baseline](assets/portfolio-instance-deltas.svg)
 
-![Accepted candidate gap readout](assets/gap-readout.svg)
+The complete per-instance ledger is [portfolio-comparison.json](artifacts/portfolio-comparison.json). It keeps the 18 regressions visible alongside the 35 improvements and 27 ties.
 
-The worst residual gaps remain visible because they matter operationally. Figure 7 is the tail readout: it shows the largest accepted-candidate residual gaps and their makespan-versus-optimum comparison.
+![Evölther 2.0 aggregate diagnostics](assets/gap-readout.svg)
 
-![Worst-instance tail gap ladder](assets/tail-gap-ladder.svg)
+![Largest residual gaps](assets/tail-gap-ladder.svg)
 
 ## 5. Limitations
 
-This result is limited to the frozen 80-instance PSPLIB J30 subset. PSPLIB contains 480 J30 instances with proven optima; this report does not claim evaluation over all 480. It also does not measure wall-clock optimization speed, human planner usability, robustness under changed project distributions, or production integration behavior.
-
-The accepted rule is deterministic and feasible under this evaluator, but it is still a dispatch heuristic. A different project class, different resource model, multi-mode activity model, stochastic arrivals, or operational priority policy would require a new evaluation contract.
+This result is limited to the frozen 80-instance PSPLIB J30 subset. It does not claim evaluation over all 480 J30 instances, measure production integration behavior, or establish robustness under different project distributions. Other project classes, resource models, or operational policies require a new evaluation contract.
 
 ## 6. Reproducibility
 
-The bundle includes the accepted candidate, evaluation contract, curated evolution chain, metrics, provenance, replay confirmation, and public figures. A curated animated replay of the same public trace is available at [the run page](https://www.gotherlabs.com/results/rcpsp-psplib-j30/run/). It is a presentation layer over the same artifacts, not a separate result, and excludes prompts, raw logs, telemetry, and non-public proposal context.
+The bundle includes the accepted candidate, baseline diff, evaluation contract, accepted-checkpoint ledger, metrics, deterministic replay, all 80 instance comparisons, feature ablations, and the real j3025_9 schedules and resource profiles.
 
-Replaying the result should use the same PSPLIB J30 portfolio, the same proven optimal makespans, the same score formula, and the same lower-is-better direction. Changing the instance set or objective creates a new evaluation, not a replay of this result.
+- [metrics.json](artifacts/metrics.json)
+- [evolution.json](artifacts/evolution.json)
+- [replay.json](artifacts/replay.json)
+- [provenance.json](artifacts/provenance.json)
+- [schedule-example.json](artifacts/schedule-example.json)
+- [portfolio-comparison.json](artifacts/portfolio-comparison.json)
+- [ablation.json](artifacts/ablation.json)
 
-The source bundle is available in
-[Göther Labs results repository](https://github.com/Gother-Labs/gother-labs-results/tree/main/results/rcpsp-psplib-j30).
+The older animated campaign surface remains in the repository as historical material; it is not the generation axis for Evölther 2.0.
