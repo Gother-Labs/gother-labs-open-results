@@ -1,41 +1,63 @@
 {
   "schema_version": "result/v1",
   "slug": "circle-packing-26-unit-square",
-  "title": "26-circle unit-square packing",
+  "title": "Exact 26-circle unit-square packing",
   "domain": "Geometric Optimization",
   "status": "published",
-  "published_at": "2026-05-26",
-  "summary": "A deterministic 26-circle packing in the unit square reaches a validated total radius of 2.635983. The public result exposes the geometry, the validation contract, the original chain, and the seeded continuation that found the improvement.",
-  "problem_statement": "Find 26 non-overlapping circles inside the unit square that maximize the sum of radii while every circle stays inside the boundary and the public entrypoint remains deterministic.",
+  "published_at": "2026-08-23",
+  "summary": "Evölther 2.0 leads the manifested public corpus under three separately verified tolerance contracts and supplies a rational interval proof of strict local optimality for the nearby 78-contact root.",
+  "problem_statement": "Place 26 variable-radius circles inside the unit square and maximize their total radius, keeping the 1e-6, 1e-10, and zero-tolerance feasibility contracts separate.",
   "evaluation_contract": {
-    "summary": "Candidates return exactly 26 centers, 26 positive radii, and a reported sum. The evaluator checks finite values, sum consistency, unit-square containment, pairwise non-overlap, and deterministic repeat calls; the score is the negative total radius, so lower is better.",
+    "summary": "Finite-decimal certificates are parsed as exact rationals and evaluated independently at tolerance 1e-6, 1e-10, and zero. Each check covers 104 walls, 325 pairs, and 26 positive radii.",
     "artifact": "artifacts/evaluation_contract.md"
   },
   "metrics": {
-    "seed": -0.9597783591318301,
-    "best": -2.6359830849768984,
-    "improvement": 1.6762047258450683,
-    "improvement_pct": 174.6449802599512,
+    "seed": -2.6359830849174704,
+    "best": -2.6359830849176076,
+    "improvement": 1.3723497056948544e-13,
+    "improvement_pct": 5.206215903080505e-12,
     "units": "score",
     "direction": "lower_is_better",
-    "validation_status": "contact-system-reconstruction-with-accepted-trace",
-    "seed_sum_radii": 0.9597783591318301,
-    "accepted_sum_radii": 2.6359830849768984,
-    "sum_radii_gain": 1.6762047258450683,
-    "known_target_sum_radii": 2.635983,
-    "known_target_gap": 0.0,
+    "validation_status": "exact-rational-certified",
+    "seed_sum_radii": 2.6359830849174704,
+    "accepted_sum_radii": 2.6359830849176076,
+    "exact_seed_sum_radii": "2.635983084917470548216",
+    "exact_accepted_sum_radii": "2.6359830849176077831865694854434817303966767982744748577457711298607038493344723396767997365079",
+    "exact_gain": "0.0000000000001372349705694854434817303966767982744748577457711298607038493344723396767997365079",
     "circle_count": 26,
-    "valid_rate": 1,
-    "boundary_contact_count": 20,
-    "pairwise_contact_count": 58,
-    "interior_circle_count": 10,
-    "min_radius": 0.06918067635842222,
-    "max_radius": 0.13701043012592073,
-    "mean_radius": 0.10138396480680378,
-    "validity_margin": -3.786615465628529e-11
+    "precision_bits": 256,
+    "constraint_checks_passed": 455,
+    "contact_count": 78,
+    "min_radius": 0.06918067635723448,
+    "max_radius": 0.13701043012374758,
+    "mean_radius": 0.10138396480452337,
+    "min_boundary_margin_exact": "1.0000000000000015957e-75",
+    "min_pair_squared_margin_exact": "6.462889117127747543948689364593329656152501312641715080908715265113483426245412515828719437575261918e-76",
+    "tolerance_1e_6_sum_radii": "2.63599872089287514",
+    "tolerance_1e_10_sum_radii": "2.63598308647338795",
+    "manifested_corpus_rank_1e_6": 1,
+    "manifested_corpus_rank_1e_10": 1,
+    "manifested_corpus_rank_exact": 1,
+    "local_optimum_status": "strict-local-maximum-certified",
+    "payload_digest": "sha256:b4cb8e3778d5ee51ea7ce69252f3b675c75d4814736e66d7a064213812388d81",
+    "certificate_digest": "sha256:a447773e2269cdd46dcc07417b978be415a85b061e8b24b0bdedb3aee71bd8e9",
+    "prior_float_sum_radii": 2.6359830849768984,
+    "prior_float_validity_margin": -3.786615465628529e-11,
+    "prior_float_status": "historical-non-authoritative"
   },
   "artifacts": {
-    "candidate_code": "artifacts/accepted_candidate.py",
+    "candidate_code": "artifacts/verifier.py",
+    "verifier": "artifacts/verifier.py",
+    "verification_entrypoint": "artifacts/verifier.py",
+    "certificate": "artifacts/exact.csv",
+    "verification_report": "artifacts/verification.json",
+    "local_optimum_interval": "artifacts/local_optimum_interval.json",
+    "public_corpus_audit": "artifacts/public_corpus_audit.json",
+    "tolerance_certificates": [
+      "artifacts/tolerance_1e-6.csv",
+      "artifacts/tolerance_1e-10.csv",
+      "artifacts/exact.csv"
+    ],
     "evolution_trace": "artifacts/evolution.json",
     "metrics": "artifacts/metrics.json",
     "provenance": "artifacts/provenance.json",
@@ -45,36 +67,39 @@
     "plots": [
       "assets/objective-curve.svg",
       "assets/packing-layout.svg",
-      "assets/contact-readout.svg"
+      "assets/contact-readout.svg",
+      "assets/tolerance-certificates.svg",
+      "assets/tolerance-rankings.svg",
+      "assets/exact-packing-contact-graph.svg"
     ]
   },
   "website": {
     "order": 3,
     "card_label": "03 Geometric Optimization",
-    "card_summary": "A 26-circle unit-square packing is validated as a deterministic geometry artifact, with the public chain and contact structure exposed.",
+    "card_summary": "Three tolerance-aware corpus leaders plus an exact rational certificate of strict local optimality for one 78-contact configuration.",
     "card_visual": "circle-packing",
     "card_metrics": [
       {
-        "label": "Validated sum radii",
-        "value": "2.635983"
+        "label": "Certified sum radii",
+        "value": "2.635983084917607783…"
       },
       {
-        "label": "Improvement from baseline",
-        "value": "+174.64%"
+        "label": "Verification",
+        "value": "Exact rational"
       }
     ],
     "detail_path": "results/circle-packing-26-unit-square/",
     "surface_path": "results/circle-packing-26-unit-square/run/",
     "display_labels": {
-      "seed": "Baseline score",
-      "best": "Accepted score",
-      "improvement": "Score reduction"
+      "seed": "Exact seed score",
+      "best": "Certified score",
+      "improvement": "Exact refinement"
     },
     "figure_captions": {
-      "assets/objective-curve.svg": "Scored public candidates and best-so-far total radius.",
-      "assets/packing-layout.svg": "Accepted 26-circle packing in the unit square.",
-      "assets/contact-readout.svg": "Boundary and pairwise contact diagnostics for the accepted packing."
+      "assets/objective-curve.svg": "Accepted exact checkpoints, from exact-v2 seed to the published certificate.",
+      "assets/packing-layout.svg": "Accepted 26-circle packing; the image is a projection of the exact payload.",
+      "assets/contact-readout.svg": "Exact certificate and feasibility diagnostics."
     },
-    "score_note": "The evaluator score is negative total radius. The report also shows sum radii directly because that is the geometric objective readers inspect; the final improvement comes from a continuation seeded from the previous accepted geometry."
+    "score_note": "The governed score is negative exact total radius. The publication leads with sum radii and exact feasibility; the previous floating reconstruction is historical context only."
   }
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": "results-catalog/v1",
-  "generated_at": "2026-08-23T12:48:02.518314+00:00",
+  "generated_at": "2026-08-23T13:13:35.619408+00:00",
   "results": [
     {
       "slug": "quadrature-rule-optimization",
@@ -124,62 +124,67 @@
     },
     {
       "slug": "circle-packing-26-unit-square",
-      "title": "26-circle unit-square packing",
+      "title": "Exact 26-circle unit-square packing",
       "domain": "Geometric Optimization",
       "status": "published",
-      "published_at": "2026-05-26",
-      "summary": "A deterministic 26-circle packing in the unit square reaches a validated total radius of 2.635983. The public result exposes the geometry, the validation contract, the original chain, and the seeded continuation that found the improvement.",
+      "published_at": "2026-08-23",
+      "summary": "Evölther 2.0 produces a 26-circle packing with exact total radius 2.635983084917607783…, including the public candidate, rational verifier, positive margins, and deterministic certificate.",
       "metrics": {
-        "seed": -0.9597783591318301,
-        "best": -2.6359830849768984,
-        "improvement": 1.6762047258450683,
-        "improvement_pct": 174.6449802599512,
+        "seed": -2.6359830849174704,
+        "best": -2.6359830849176076,
+        "improvement": 1.3722356584366935e-13,
+        "improvement_pct": 5.206215903080505e-12,
         "units": "score",
         "direction": "lower_is_better",
-        "validation_status": "contact-system-reconstruction-with-accepted-trace",
-        "seed_sum_radii": 0.9597783591318301,
-        "accepted_sum_radii": 2.6359830849768984,
-        "sum_radii_gain": 1.6762047258450683,
-        "known_target_sum_radii": 2.635983,
-        "known_target_gap": 0.0,
+        "validation_status": "exact-rational-certified",
+        "seed_sum_radii": 2.6359830849174704,
+        "accepted_sum_radii": 2.6359830849176076,
+        "exact_seed_sum_radii": "2.635983084917470548216",
+        "exact_accepted_sum_radii": "2.63598308491760778318656948544348173039667679827447485774577112986070384936047233967679977696814140651626255328163347303631976410259785760429310341594103",
+        "exact_gain": "0.00000000000013723497056948544348173039667679827447485774577112986070384936047233967679977696814140651626255328163347303631976410259785760429310341594103",
         "circle_count": 26,
-        "valid_rate": 1,
-        "boundary_contact_count": 20,
-        "pairwise_contact_count": 58,
-        "interior_circle_count": 10,
-        "min_radius": 0.06918067635842222,
-        "max_radius": 0.13701043012592073,
-        "mean_radius": 0.10138396480680378,
-        "validity_margin": -3.786615465628529e-11
+        "precision_bits": 256,
+        "constraint_checks_passed": 8,
+        "contact_count": 78,
+        "min_radius": 0.06918067635723447,
+        "max_radius": 0.13701043012374758,
+        "mean_radius": 0.10138396480452337,
+        "min_boundary_margin_exact": "0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000999999999998",
+        "min_pair_squared_margin_exact": "0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000064628891171190618315622849793540791900633324907135644441731919214253907162051270330695033358453580428327111883462144299016048131350695721468282050126718846221360625",
+        "payload_digest": "sha256:b4cb8e3778d5ee51ea7ce69252f3b675c75d4814736e66d7a064213812388d81",
+        "certificate_digest": "sha256:a447773e2269cdd46dcc07417b978be415a85b061e8b24b0bdedb3aee71bd8e9",
+        "prior_float_sum_radii": 2.6359830849768984,
+        "prior_float_validity_margin": -3.786615465628529e-11,
+        "prior_float_status": "historical-non-authoritative"
       },
       "website": {
         "order": 3,
         "card_label": "03 Geometric Optimization",
-        "card_summary": "A 26-circle unit-square packing is validated as a deterministic geometry artifact, with the public chain and contact structure exposed.",
+        "card_summary": "A 26-circle packing published as an exact rational payload with independently replayable feasibility and certificate hashes.",
         "card_visual": "circle-packing",
         "card_metrics": [
           {
-            "label": "Validated sum radii",
-            "value": "2.635983"
+            "label": "Certified sum radii",
+            "value": "2.635983084917607783…"
           },
           {
-            "label": "Improvement from baseline",
-            "value": "+174.64%"
+            "label": "Verification",
+            "value": "Exact rational"
           }
         ],
         "detail_path": "results/circle-packing-26-unit-square/",
         "surface_path": "results/circle-packing-26-unit-square/run/",
         "display_labels": {
-          "seed": "Baseline score",
-          "best": "Accepted score",
-          "improvement": "Score reduction"
+          "seed": "Exact seed score",
+          "best": "Certified score",
+          "improvement": "Exact refinement"
         },
         "figure_captions": {
-          "assets/objective-curve.svg": "Scored public candidates and best-so-far total radius.",
-          "assets/packing-layout.svg": "Accepted 26-circle packing in the unit square.",
-          "assets/contact-readout.svg": "Boundary and pairwise contact diagnostics for the accepted packing."
+          "assets/objective-curve.svg": "Accepted exact checkpoints, from exact-v2 seed to the published certificate.",
+          "assets/packing-layout.svg": "Accepted 26-circle packing; the image is a projection of the exact payload.",
+          "assets/contact-readout.svg": "Exact certificate and feasibility diagnostics."
         },
-        "score_note": "The evaluator score is negative total radius. The report also shows sum radii directly because that is the geometric objective readers inspect; the final improvement comes from a continuation seeded from the previous accepted geometry."
+        "score_note": "The governed score is negative exact total radius. The publication leads with sum radii and exact feasibility; the previous floating reconstruction is historical context only."
       },
       "path": "results/circle-packing-26-unit-square/result.json"
     },
