@@ -1,71 +1,109 @@
 # 26-circle unit-square packing
 
+{{visual:outcome-strip}}
+
+{{visual:history-ledger}}
+
 ## Abstract
 
-This note reports a deterministic 26-circle packing inside the unit square as a validated geometry, a public scoring trace, and a reproducible reconstruction candidate. The accepted geometry reaches total radius 2.635983. The public trace starts from the original domain `program.py` baseline at total radius 0.959778, records all valid scored candidates, and marks the retained implementation states that lead to the accepted packing. The governed lower-is-better score improves from -0.959778 to -2.635983.
+We study the placement of 26 independently sized circles in the unit square while maximizing their total radius. The headline is not one naked score: **Evölther 2.0 publishes three independently replayable certificates for three non-interchangeable feasibility contracts**—\(\tau=10^{-6}\), \(10^{-10}\), and \(0\). Each ranks first among the complete public witnesses in the manifested corpus that are valid under the same exact-rational contract.
 
-For audit clarity, the public claim is not a raw solver artifact. It is the combination of the accepted code surface, the replayed scoring evidence, and the evaluator-validated geometry. The accepted candidate reconstructs the continuation contact graph, verifies it against the retained accepted trace, and returns the validated centers and radii only after the geometry has passed validation.
-
-## 1. Problem formulation
-
-The task is to place 26 circles in the unit square without overlap. A packing is defined by centers \((x_i, y_i)\) and radii \(r_i\) for \(i = 1, \dots, 26\). The objective is the total radius:
+For the strict problem, the finite-decimal witness has total radius
 
 $$
-R(P) = \sum_{i=1}^{26} r_i
+2.6359830849176077831865694854434817303966767982744748577457711298607038493344723396767997365079.
 $$
+
+An exact rational interval certificate additionally proves that the nearby real 78-contact configuration is a **strict local maximizer**. This is a tolerance-aware reproducibility result and a local theorem—not a proof of global optimality or a new Packomania record.
+
+## 1. One geometry, three numerical problems
+
+For centers \((x_i,y_i)\) and radii \(r_i>0\), maximize
+
+$$
+f(x)=\sum_{i=0}^{25}r_i
+$$
+
+subject to four wall constraints per circle and one non-overlap constraint per pair. The model therefore contains 78 continuous variables and 429 geometric inequalities: 104 wall decisions and 325 pair decisions. Including radius positivity, every certificate makes 455 exact decisions.
 
 {{visual:packing-primer}}
 
-Every circle must remain inside \([0,1]^2\), and every pair of circles must satisfy the non-overlap constraint:
+A tolerance \(\tau\) changes the feasible set. Wall gaps may be as low as \(-\tau\), while a pair must satisfy
 
 $$
-\sqrt{(x_i-x_j)^2 + (y_i-y_j)^2} \ge r_i + r_j.
+(x_i-x_j)^2+(y_i-y_j)^2\geq(r_i+r_j-\tau)^2
 $$
 
-## 2. Evaluation contract
+whenever \(r_i+r_j-\tau>0\). Consequently, a larger score at \(10^{-6}\) cannot be presented as an improvement over a strict \(\tau=0\) witness. It solves a different numerical contract.
 
-The evaluator asks the candidate for exactly 26 centers, 26 positive radii, and a reported sum. It verifies finite values, checks that the reported sum matches the radii, rejects boundary violations, rejects pairwise overlap, and calls the entrypoint twice to enforce determinism.
+{{visual:tolerance-contracts}}
 
-{{visual:contract-table}}
+The relaxed certificates consume their declared tolerance and fail when rechecked at zero. The strict CSV was formed by rounding a high-precision contact root to 90 decimal places and reducing every radius by approximately \(10^{-75}\). That tiny inward movement turns the serialized decimal geometry into an exact feasible rational lower bound.
 
-The score is defined as:
+{{visual:tolerance-layouts}}
 
-$$
-J(P) = -R(P).
-$$
+The three drawings appear almost identical because their differences are smaller than the plotted line width. The contract and verifier—not the image—determine which result is valid.
 
-Lower score is therefore better, but the report also shows \(R(P)\) directly because total radius is the geometric quantity of interest.
+## 2. Where each result stands
 
-## 3. Accepted candidate
+We authenticated nine upstream artifacts and evaluated ten complete public witnesses in a corpus frozen on **8 August 2026**. Every numeric token was retained as a decimal string and reevaluated as a rational number under all three contracts. Downloaded programs and notebooks were parsed as data rather than executed; mutable sources were hash-pinned and fail closed if their contents drift.
 
-The accepted public candidate is a deterministic reconstruction program, not a stored list of final coordinates. It starts from a coarse deterministic seed, solves the boundary and pairwise tangency equations with a small damped Newton system, checks the reconstruction against the retained accepted continuation trace, and then validates the resulting geometry before returning it. The replayed centers and radii remain part of the audit bundle as evidence of the accepted run, while the implementation surface makes numerical drift explicit.
+{{visual:tolerance-rankings}}
+
+Evölther 2.0 is the highest-scoring valid witness in the explicit manifested corpus for each matching contract. **At \(\tau=10^{-6}\)**, 2.63599872089287514 ranks above the other complete witnesses admitted by that relaxed contract. **At \(\tau=10^{-10}\)**, 2.63598308647338795 ranks first in the stricter relaxed panel. **At \(\tau=0\)**, 2.635983084917607783… ranks first among the strict exact-rational witnesses acquired in the audit.
+
+This is the reproducible meaning of “best” on this page: **best exact-rationally reevaluated witness in the manifested public corpus under the same tolerance**. It is not an exhaustive world ranking. Reported values without a complete downloadable witness—such as Numaro and HELIX at the snapshot date—remain outside the computed ranking.
+
+## 3. How the exact score is computed
+
+Each CSV row contains \(x_i\), \(y_i\), and \(r_i\) as finite decimal strings. Python's `Decimal` parser and `Fraction` convert them into exact rationals. The score is then the rational sum of the 26 radii; no binary floating-point value participates in acceptance.
+
+For each circle the verifier computes \(x_i-r_i\), \(1-x_i-r_i\), \(y_i-r_i\), and \(1-y_i-r_i\). For every pair it computes the squared distance and compares it with the squared tolerance-adjusted radius sum. This is the core of the published verifier:
 
 {{visual:implementation-code}}
 
-## 4. Results
+The strict certificate passes 455/455 decisions. Its smallest zero-tolerance wall gap is approximately \(1.0\times10^{-75}\), and its smallest squared pair gap is approximately \(6.46\times10^{-76}\). Square roots are used only for readable diagnostics, never for pass/fail.
 
-The public trajectory has three visible phases. First, the original `program.py` baseline is a sparse packing with total radius 0.959778. Second, early generated candidates move quickly into useful geometries: the first valid candidate reaches 1.064234, and generation 1 later produces the retained 2.438966 checkpoint. Third, most later candidates explore the high-radius plateau until the accepted reconstruction reaches total radius 2.635983. In evaluator-score terms, the full public trajectory is a reduction from -0.959778 to -2.635983.
+{{visual:exact-readout}}
 
-{{visual:objective-curve}}
+## 4. From a feasible CSV to a local theorem
 
-{{visual:objective-summary-table}}
+Exact feasibility proves that one serialized witness is valid. The stronger mathematical result concerns the nearby real contact root. The strict witness identifies 78 active constraints—58 circle-circle contacts and 20 wall contacts—which match the 78 variables.
 
-The accepted packing is tight in the sense exposed by the public diagnostics: 20 boundary contacts and 58 pairwise contacts are detected at the public tolerance. The smallest boundary and pairwise slacks are near machine precision, so the contact readout acts as a structural check on the geometry rather than a separate optimization claim.
+{{visual:contact-graph}}
 
-{{visual:packing-layout}}
+Let \(g:\mathbb{R}^{78}\to\mathbb{R}^{78}\) collect those active polynomial gaps. The certificate proceeds in four auditable steps:
 
-{{visual:contact-readout}}
+**Step 1 — isolate the root.** A rational Krawczyk operator proves that a box of radius \(10^{-90}\) contains exactly one root \(x^*\) of \(g(x)=0\). Its maximum inclusion ratio and contraction bound are both below \(8.552\times10^{-15}\).
 
-## 5. Public standing and limitations
+**Step 2 — preserve feasibility.** Every one of the 351 inactive geometric constraints remains strictly feasible throughout that box; the smallest certified inactive polynomial gap is greater than 0.0071877548.
 
-This is a result for the 26-circle unit-square packing contract only. It is not a proof of global optimality, and it does not claim a general packing solver for other circle counts, other containers, or changed objectives.
+**Step 3 — certify stationarity.** A second rational Krawczyk calculation encloses the KKT multipliers. All 78 multipliers are positive, with the smallest greater than 0.0208256021.
 
-The strongest exact public values currently tracked in the source bundle report 2.635983 for \(n = 26\), matching this result at six displayed decimals. A third-party benchmark page also lists LoongFlow, SkyDiscover, and ASI-Evolve at 2.636, but only at three-decimal precision. Because those entries are rounded and have not been independently replayed under this repository's evaluator, this article does not make an absolute world-ranking claim.
+**Step 4 — conclude locally.** Because the active gradients form a basis, the active gaps are local coordinates. With positive multipliers, every nonzero feasible nearby gap direction strictly decreases the total radius. Therefore \(x^*\) is a strict local maximum.
 
-The accepted candidate is deterministic and reconstructs this validated contact graph. It is not a general-purpose solver for arbitrary circle-packing instances; changing the circle count, container, objective, or contact graph creates a new evaluation.
+{{visual:local-proof}}
 
-## 6. Reproducibility
+The real root is enclosed between 2.6359830849176077831865694854434817303966767982744 and 2.6359830849176077831865694854434817303966767982745 in total radius. It lies slightly above the deliberately shrunken CSV witness; the two objects should not be conflated.
 
-The bundle includes the accepted candidate, evaluation contract, curated original-plus-continuation evolution chain, scored-candidate trace, metrics, provenance, replay confirmation, and a public [animated run surface](./run/). The run page is a presentation layer over the same public artifacts and excludes raw operational material.
+## 5. What changed from the earlier result
 
-The source bundle is available in [Göther Labs results repository](https://github.com/Gother-Labs/gother-labs-results/tree/main/results/circle-packing-26-unit-square).
+The historical Evölther reconstruction printed 2.6359830849768984 under binary64 arithmetic, but its minimum numerical slack was negative. It remains valuable as a search checkpoint, not as a strict certificate. Evölther 2.0 separates search from publication: first propose a high-quality contact geometry, then publish independent witnesses for named contracts and prove what can actually be established.
+
+{{visual:precision-comparison}}
+
+The advance is therefore not merely a few more decimals. It is the transition from an attractive numerical output to a claim with explicit scope: three contract-specific corpus leaders, an exact strict witness, and a computer-assisted proof of strict local optimality for the nearby contact root.
+
+## 6. Reproducibility and limits
+
+The public artifact includes the three CSV certificates, exact-rational verifier, hash-authenticated source manifest, generated audit tables, contact system, interval certificate, and deterministic publication build. Version 1.2.1 passes 39/39 tests and the four-document publication gate. The verification path uses only the Python standard library.
+
+```text
+cd results/circle-packing-26-unit-square/artifacts
+python3 verifier.py
+python3 -S prove_local_optimum.py
+```
+
+The audit is frozen to its manifested corpus and snapshot. It does not certify that no stronger unpublished or unacquired witness exists. The interval argument proves a strict local maximum for one 78-contact root, not global optimality over every 26-circle topology.
+
+Read the [technical repository](https://github.com/juan-fernandez-gotherlabs/circle-packing-tolerance-audit), the [v1.2.1 release](https://github.com/juan-fernandez-gotherlabs/circle-packing-tolerance-audit/releases/tag/v1.2.1), or the archived artifact at [Zenodo](https://doi.org/10.5281/zenodo.22060172).
