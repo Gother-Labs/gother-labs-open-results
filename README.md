@@ -1,5 +1,15 @@
 # Göther Labs Results
 
+## Public evidence for governed technical improvement
+
+This repository is Göther Labs’ public evidence layer for evaluation-driven technical improvement.
+
+Each published result is a bounded, reproducible bundle: it exposes the problem, evaluation contract, accepted candidate, and public artifacts needed to inspect the claim and its limitations.
+
+Public bundles are intentionally sanitized. They exclude private generation context, operational run records, sensitive configuration, and uncurated intermediate material.
+
+Browse the published results at [gotherlabs.com/results](https://www.gotherlabs.com/results/).
+
 This repository is the public editorial and technical source for Göther Labs
 results.
 
