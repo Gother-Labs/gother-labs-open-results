@@ -14,8 +14,8 @@
   "metrics": {
     "seed": -2.6359830849174704,
     "best": -2.6359830849176076,
-    "improvement": 1.3723497056948544e-13,
-    "improvement_pct": 5.206215903080505e-12,
+    "improvement": 1.3722356584366935e-13,
+    "improvement_pct": 5.205783247579742e-12,
     "units": "score",
     "direction": "lower_is_better",
     "validation_status": "exact-rational-certified",
@@ -25,7 +25,6 @@
     "exact_accepted_sum_radii": "2.6359830849176077831865694854434817303966767982744748577457711298607038493344723396767997365079",
     "exact_gain": "0.0000000000001372349705694854434817303966767982744748577457711298607038493344723396767997365079",
     "circle_count": 26,
-    "precision_bits": 256,
     "constraint_checks_passed": 455,
     "contact_count": 78,
     "min_radius": 0.06918067635723448,
@@ -39,35 +38,31 @@
     "manifested_corpus_rank_1e_10": 1,
     "manifested_corpus_rank_exact": 1,
     "local_optimum_status": "strict-local-maximum-certified",
-    "payload_digest": "sha256:b4cb8e3778d5ee51ea7ce69252f3b675c75d4814736e66d7a064213812388d81",
-    "certificate_digest": "sha256:a447773e2269cdd46dcc07417b978be415a85b061e8b24b0bdedb3aee71bd8e9",
+    "real_contact_root_score_lower": "2.6359830849176077831865694854434817303966767982744",
+    "real_contact_root_score_upper": "2.6359830849176077831865694854434817303966767982745",
+    "public_corpus_snapshot": "2026-08-08",
     "prior_float_sum_radii": 2.6359830849768984,
     "prior_float_validity_margin": -3.786615465628529e-11,
     "prior_float_status": "historical-non-authoritative"
   },
   "artifacts": {
-    "candidate_code": "artifacts/verifier.py",
+    "publication_manifest": "artifacts/publication-manifest.json",
     "verifier": "artifacts/verifier.py",
     "verification_entrypoint": "artifacts/verifier.py",
     "certificate": "artifacts/exact.csv",
     "verification_report": "artifacts/verification.json",
     "local_optimum_interval": "artifacts/local_optimum_interval.json",
+    "local_optimum_certificate": "artifacts/local_optimum_certificate.json",
+    "local_optimum_verifier": "artifacts/prove_local_optimum.py",
     "public_corpus_audit": "artifacts/public_corpus_audit.json",
     "tolerance_certificates": [
       "artifacts/tolerance_1e-6.csv",
       "artifacts/tolerance_1e-10.csv",
       "artifacts/exact.csv"
     ],
-    "evolution_trace": "artifacts/evolution.json",
     "metrics": "artifacts/metrics.json",
     "provenance": "artifacts/provenance.json",
-    "reference_comparison": "artifacts/reference-comparison.json",
-    "replay": "artifacts/replay.json",
-    "score_trace": "artifacts/score-trace.json",
     "plots": [
-      "assets/objective-curve.svg",
-      "assets/packing-layout.svg",
-      "assets/contact-readout.svg",
       "assets/tolerance-certificates.svg",
       "assets/tolerance-rankings.svg",
       "assets/exact-packing-contact-graph.svg"
@@ -95,11 +90,7 @@
       "best": "Certified score",
       "improvement": "Exact refinement"
     },
-    "figure_captions": {
-      "assets/objective-curve.svg": "Accepted exact checkpoints, from exact-v2 seed to the published certificate.",
-      "assets/packing-layout.svg": "Accepted 26-circle packing; the image is a projection of the exact payload.",
-      "assets/contact-readout.svg": "Exact certificate and feasibility diagnostics."
-    },
+    "figure_captions": {},
     "score_note": "The governed score is negative exact total radius. The publication leads with sum radii and exact feasibility; the previous floating reconstruction is historical context only."
   }
 }

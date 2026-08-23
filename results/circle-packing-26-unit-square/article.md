@@ -1,5 +1,7 @@
 # 26-circle unit-square packing
 
+{{visual:outcome-strip}}
+
 {{visual:history-ledger}}
 
 ## Abstract
@@ -12,7 +14,7 @@ $$
 2.6359830849176077831865694854434817303966767982744748577457711298607038493344723396767997365079.
 $$
 
-An exact rational interval certificate additionally proves that the nearby real 78-contact configuration is a **strict local maximizer**. This is a tolerance-aware reproducibility result and a local theorem—not a proof of global optimality or a new universal packing record.
+An exact rational interval certificate additionally proves that the nearby real 78-contact configuration is a **strict local maximizer**. This is a tolerance-aware reproducibility result and a local theorem—not a proof of global optimality or a new Packomania record.
 
 ## 1. One geometry, three numerical problems
 
@@ -44,7 +46,7 @@ The three drawings appear almost identical because their differences are smaller
 
 ## 2. Where each result stands
 
-We authenticated nine upstream artifacts and evaluated ten complete public witnesses. Every numeric token was retained as a decimal string and reevaluated as a rational number under all three contracts. Downloaded programs and notebooks were parsed as data rather than executed; mutable sources were hash-pinned and fail closed if their contents drift.
+We authenticated nine upstream artifacts and evaluated ten complete public witnesses in a corpus frozen on **8 August 2026**. Every numeric token was retained as a decimal string and reevaluated as a rational number under all three contracts. Downloaded programs and notebooks were parsed as data rather than executed; mutable sources were hash-pinned and fail closed if their contents drift.
 
 {{visual:tolerance-rankings}}
 
@@ -97,8 +99,9 @@ The advance is therefore not merely a few more decimals. It is the transition fr
 The public artifact includes the three CSV certificates, exact-rational verifier, hash-authenticated source manifest, generated audit tables, contact system, interval certificate, and deterministic publication build. Version 1.2.1 passes 39/39 tests and the four-document publication gate. The verification path uses only the Python standard library.
 
 ```text
-python3 scripts/verifier.py
-python3 scripts/prove_local_optimum.py --verify-only
+cd results/circle-packing-26-unit-square/artifacts
+python3 verifier.py
+python3 -S prove_local_optimum.py
 ```
 
 The audit is frozen to its manifested corpus and snapshot. It does not certify that no stronger unpublished or unacquired witness exists. The interval argument proves a strict local maximum for one 78-contact root, not global optimality over every 26-circle topology.
