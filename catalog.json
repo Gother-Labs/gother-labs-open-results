@@ -1,6 +1,6 @@
 {
   "schema_version": "results-catalog/v1",
-  "generated_at": "2026-08-23T12:42:33.333527+00:00",
+  "generated_at": "2026-08-23T12:48:02.518314+00:00",
   "results": [
     {
       "slug": "quadrature-rule-optimization",
@@ -284,23 +284,21 @@
       },
       "website": {
         "order": 5,
-        "featured": true,
-        "card_label": "Featured Energy Optimization",
-        "card_summary": "Replayable BESS challenger with 33.714% score reduction, €20.20/day mean uplift, and 0 constraint breaches across frozen OMIE scenarios.",
+        "card_label": "05 Energy Optimization",
+        "card_summary": "A BESS dispatch policy is challenged offline against commercial baselines, oracle headroom, downside risk, degradation proxy, and hard constraint checks.",
         "card_visual": "storage-arbitrage",
         "card_metrics": [
           {
-            "label": "Score reduction",
-            "value": "33.714%"
+            "label": "Avg uplift vs baseline",
+            "value": "€20.20/day"
           },
           {
-            "label": "Replay guardrail",
-            "value": "0 breaches"
+            "label": "Constraint breaches",
+            "value": "0"
           }
         ],
         "detail_path": "results/iberian-bess-policy-challenge/",
         "surface_path": "results/iberian-bess-policy-challenge/run/",
-        "offer_path": "evolther/bess-policy-challenger/",
         "display_labels": {
           "seed": "Seed score",
           "best": "Accepted score",
