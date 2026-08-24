@@ -1,6 +1,6 @@
 {
   "schema_version": "results-catalog/v1",
-  "generated_at": "2026-08-23T20:53:24.353250+00:00",
+  "generated_at": "2026-08-24T11:36:22.179644+00:00",
   "results": [
     {
       "slug": "quadrature-rule-optimization",
@@ -179,7 +179,6 @@
           }
         ],
         "detail_path": "results/circle-packing-26-unit-square/",
-        "surface_path": "results/circle-packing-26-unit-square/run/",
         "display_labels": {
           "seed": "Exact seed score",
           "best": "Certified score",
