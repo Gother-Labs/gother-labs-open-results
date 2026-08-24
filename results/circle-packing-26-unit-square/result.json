@@ -84,7 +84,6 @@
       }
     ],
     "detail_path": "results/circle-packing-26-unit-square/",
-    "surface_path": "results/circle-packing-26-unit-square/run/",
     "display_labels": {
       "seed": "Exact seed score",
       "best": "Certified score",
