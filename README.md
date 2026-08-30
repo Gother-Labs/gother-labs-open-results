@@ -26,12 +26,17 @@ they are committed here. Public bundles must not include non-public generation
 context, operational run records, sensitive configuration, or uncurated
 intermediate material.
 
-The website consumes this repository through `catalog.json`.
+The website consumes one validated structured surface: [`catalog.json`](catalog.json). The exact `results-catalog/v2` contract is documented in [`docs/website-consumer-contract.md`](docs/website-consumer-contract.md).
 
 Schema identifiers, documentation, tooling, and website routes use “results”
 consistently.
 
 ```bash
-python3 tools/validate_result.py results/quadrature-rule-optimization
+python3 -m pip install -r requirements-dev.txt
+python3 -m unittest discover -s tests -v
+python3 tools/validate_result.py results/*
 python3 tools/build_catalog.py
+python3 tools/build_catalog.py --check
 ```
+
+Validation applies the canonical JSON Schema before bundle-specific semantic and path-safety checks. `catalog.json` embeds complete validated `result/v1` entries and contains no wall-clock timestamp, so repeated builds from the same commit are byte-identical.

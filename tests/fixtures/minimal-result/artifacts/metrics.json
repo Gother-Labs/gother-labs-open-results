@@ -1,0 +1,9 @@
+{
+  "seed": 10.0,
+  "best": 8.0,
+  "improvement": 2.0,
+  "improvement_pct": 20.0,
+  "units": "score",
+  "direction": "lower_is_better",
+  "validation_status": "fixture-pass"
+}

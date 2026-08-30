@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gotherlabs.com/schemas/catalog.schema.json",
+  "title": "Göther Labs Results Catalog",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "results"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "results-catalog/v2"
+    },
+    "results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "https://gotherlabs.com/schemas/result.schema.json"
+      }
+    }
+  },
+  "additionalProperties": false
+}
