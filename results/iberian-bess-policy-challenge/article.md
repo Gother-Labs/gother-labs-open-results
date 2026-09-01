@@ -10,7 +10,7 @@ The accepted policy reduces the published weighted euro-like score from a 72.544
 
 This result evaluates a single 1 MW / 4 MWh battery trading frozen OMIE day-ahead price scenarios. The policy decides hourly charge and discharge while respecting power, state-of-charge, efficiency, and terminal SOC constraints.
 
-The pre-sell question is deliberately narrow: can a replayable challenger discover an auditable improvement candidate against a commercial dispatch baseline, while keeping every constraint and weak case visible? The result should be read as a professional offline benchmark, not as a claim about live bidding or a replacement for a client optimizer.
+The benchmark question is deliberately narrow: can a replayable challenger discover an auditable improvement candidate against a commercial dispatch baseline, while keeping every constraint and weak case visible? The result should be read as a professional offline benchmark, not as a claim about live bidding or a replacement for a client optimizer.
 
 {{visual:benchmark-readout}}
 
@@ -38,7 +38,7 @@ Across the eight frozen scenarios for the single 1 MW / 4 MWh battery, the accep
 
 ## 5. Accepted policy
 
-The accepted policy is a small deterministic portfolio. It evaluates several valid dispatch heuristics on the same daily price horizon and selects the highest-margin valid plan. This is intentionally simple: the pre-sell point is not to replace a client optimizer, but to show that an offline policy challenger can find auditable improvement candidates under a fixed contract.
+The accepted policy is a small deterministic portfolio. It evaluates several valid dispatch heuristics on the same daily price horizon and selects the highest-margin valid plan. This is intentionally simple: the benchmark point is not to replace a client optimizer, but to show that an offline policy challenger can find auditable improvement candidates under a fixed contract.
 
 {{visual:implementation-code}}
 
@@ -61,9 +61,3 @@ This is an offline day-ahead benchmark over frozen scenarios. It is not producti
 The bundle includes the accepted candidate, evaluation contract, comparison rows, dispatch trace, replay data, forecast-error smoke output, metrics, score trace, and provenance. A curated run surface is available at [the run page](./run/). It is a presentation layer over the same public artifacts, not a separate result, and excludes non-public operational material.
 
 The source bundle is available in the [Göther Labs results repository](https://github.com/Gother-Labs/gother-labs-results/tree/main/results/iberian-bess-policy-challenge).
-
-## 9. Private challenge
-
-The natural next step is not a generic demo. It is a small private policy challenge using the client's current baseline, approved scenarios, battery contract, and operational guardrails.
-
-{{visual:private-challenge-cta}}

@@ -401,8 +401,7 @@
       },
       "website": {
         "order": 5,
-        "featured": true,
-        "card_label": "Featured Energy Optimization",
+        "card_label": "05 Energy Optimization",
         "card_summary": "Replayable 1 MW / 4 MWh BESS challenger with 33.714% relative score reduction, €20.20/day mean gross uplift versus the quantile baseline, and 0 constraint breaches across 8 frozen OMIE scenarios.",
         "card_visual": "storage-arbitrage",
         "card_metrics": [
