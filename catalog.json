@@ -402,26 +402,27 @@
       "website": {
         "order": 5,
         "card_label": "05 Energy Optimization",
-        "card_summary": "A BESS dispatch policy is challenged offline against commercial baselines, oracle headroom, downside risk, degradation proxy, and hard constraint checks.",
+        "card_summary": "Replayable 1 MW / 4 MWh BESS challenger with 33.714% relative score reduction, €20.20/day mean gross uplift versus the quantile baseline, and 0 constraint breaches across 8 frozen OMIE scenarios.",
         "card_visual": "storage-arbitrage",
         "card_metrics": [
           {
-            "label": "Avg uplift vs baseline",
-            "value": "€20.20/day"
+            "label": "Relative score reduction",
+            "value": "33.714%"
           },
           {
-            "label": "Constraint breaches",
-            "value": "0"
+            "label": "Replay guardrail",
+            "value": "0 breaches"
           }
         ],
         "detail_path": "results/iberian-bess-policy-challenge/",
         "surface_path": "results/iberian-bess-policy-challenge/run/",
         "display_labels": {
-          "seed": "Seed score",
+          "seed": "Quantile baseline score",
           "best": "Accepted score",
-          "improvement": "Score reduction"
+          "improvement": "Absolute score delta",
+          "improvement_pct": "Relative score reduction"
         },
-        "score_note": "The score is a weighted euro-like benchmark objective over regret, baseline shortfall, degradation proxy, downside rate, and constraint penalties. Public sales claims should use it with the comparison and dispatch artifacts.",
+        "score_note": "The score is a weighted euro-like benchmark objective over regret, quantile-baseline shortfall, degradation proxy, downside rate, and constraint penalties. Mean uplift is gross simulated day-ahead dispatch-profit uplift before the degradation proxy; cycle-adjusted margin reports that proxy separately. Intraday and reserve revenues, imbalance settlement, taxes, grid and portfolio effects, and production bidding constraints are excluded.",
         "figure_captions": {
           "assets/objective-curve.svg": "Seed, checked-in, and accepted policy scores under the v0.1 contract. Lower is better.",
           "assets/baseline-comparison.svg": "Accepted policy readout across uplift, regret, cycle-adjusted margin, downside, and constraint breaches.",
