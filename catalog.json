@@ -1,14 +1,19 @@
 {
-  "schema_version": "results-catalog/v1",
-  "generated_at": "2026-08-24T11:36:22.179644+00:00",
+  "schema_version": "results-catalog/v2",
   "results": [
     {
+      "schema_version": "result/v1",
       "slug": "quadrature-rule-optimization",
       "title": "Quadrature rule optimization",
       "domain": "Scientific Computing",
       "status": "published",
       "published_at": "2026-05-01",
       "summary": "A compact five-node rule for estimating one-dimensional integrals, improved against a fixed public test suite. The report separates the acceptance score from direct residual errors so the gain can be inspected, replayed, and challenged.",
+      "problem_statement": "Find a compact quadrature rule that reduces integration error across a fixed suite of analytic functions while keeping the rule inspectable, replayable, and stable under the unchanged evaluation contract.",
+      "evaluation_contract": {
+        "summary": "Candidates are scored on a frozen analytic integrand suite using a lower-is-better objective. The objective is the acceptance contract, while the report also exposes per-integrand errors as the more interpretable scientific readout.",
+        "artifact": "artifacts/evaluation_contract.md"
+      },
       "metrics": {
         "seed": 688.676231,
         "best": 114.514813,
@@ -17,6 +22,16 @@
         "units": "objective",
         "direction": "lower_is_better",
         "validation_status": "curated-surface"
+      },
+      "artifacts": {
+        "candidate_code": "artifacts/accepted_candidate.py",
+        "evolution_trace": "artifacts/evolution.json",
+        "metrics": "artifacts/metrics.json",
+        "provenance": "artifacts/provenance.json",
+        "plots": [
+          "assets/objective-curve.svg",
+          "assets/candidate-trace.svg"
+        ]
       },
       "website": {
         "order": 1,
@@ -44,16 +59,22 @@
           "assets/candidate-trace.svg": "Accepted quadrature rule: node positions, normalized weights, and residual error by representative integrand."
         },
         "score_note": "The objective is the evaluation contract used by the run, not a universal measure of integration quality. The scientific interpretation comes from reading it together with the residual errors and the replayable candidate."
-      },
-      "path": "results/quadrature-rule-optimization/result.json"
+      }
     },
     {
+      "schema_version": "result/v1",
       "slug": "rcpsp-psplib-j30",
       "title": "PSPLIB J30 scheduling benchmark",
       "domain": "Operational Planning",
       "status": "published",
       "published_at": "2026-05-12",
+      "updated_at": "2026-08-22",
       "summary": "Across accepted checkpoints under one frozen PSPLIB J30 contract, Evölther reduced the lower-is-better scheduling score from 14.312 at baseline to 12.087, and Evölther 2.0 reduced it further to 10.108 while preserving feasibility on all 80 instances.",
+      "problem_statement": "Find a deterministic activity-priority rule for serial schedule generation that reduces makespan gap against proven PSPLIB J30 optima while preserving precedence and renewable-resource feasibility.",
+      "evaluation_contract": {
+        "summary": "Candidates are scored on 80 frozen PSPLIB J30 single-mode RCPSP instances. Every evaluated instance has a proven optimal makespan, and schedules must satisfy precedence constraints, renewable-resource capacities, finite priority scores, and deterministic eligible-activity selection.",
+        "artifact": "artifacts/evaluation_contract.md"
+      },
       "metrics": {
         "schema_version": "rcpsp-metrics/v2",
         "seed": 14.312164873860446,
@@ -84,6 +105,28 @@
           "unchanged": 27,
           "worse": 18
         }
+      },
+      "artifacts": {
+        "candidate_code": "artifacts/accepted_candidate.py",
+        "baseline_diff": "artifacts/baseline-to-evolther-2.diff",
+        "evolution_trace": "artifacts/evolution.json",
+        "score_trace": "artifacts/score-trace.json",
+        "metrics": "artifacts/metrics.json",
+        "provenance": "artifacts/provenance.json",
+        "replay": "artifacts/replay.json",
+        "schedule_example": "artifacts/schedule-example.json",
+        "portfolio_comparison": "artifacts/portfolio-comparison.json",
+        "feature_ablation": "artifacts/ablation.json",
+        "plots": [
+          "assets/objective-curve.svg",
+          "assets/benchmark-comparison.svg",
+          "assets/resource-load.svg",
+          "assets/instance-comparison.svg",
+          "assets/portfolio-instance-deltas.svg",
+          "assets/gap-readout.svg",
+          "assets/tail-gap-ladder.svg",
+          "assets/schedule-network.svg"
+        ]
       },
       "website": {
         "order": 2,
@@ -119,16 +162,21 @@
           "artifacts/schedule-example.json": "Deterministic before-and-after schedule and renewable-resource profiles for j3025_9."
         },
         "score_note": "The score is the frozen evaluation contract for this public PSPLIB J30 subset. It is not a runtime benchmark and it is not a claim over all RCPSP instances."
-      },
-      "path": "results/rcpsp-psplib-j30/result.json"
+      }
     },
     {
+      "schema_version": "result/v1",
       "slug": "circle-packing-26-unit-square",
       "title": "Exact 26-circle unit-square packing",
       "domain": "Geometric Optimization",
       "status": "published",
       "published_at": "2026-08-23",
       "summary": "Evölther 2.0 leads the manifested public corpus under three separately verified tolerance contracts and supplies a rational interval proof of strict local optimality for the nearby 78-contact root.",
+      "problem_statement": "Place 26 variable-radius circles inside the unit square and maximize their total radius, keeping the 1e-6, 1e-10, and zero-tolerance feasibility contracts separate.",
+      "evaluation_contract": {
+        "summary": "Finite-decimal certificates are parsed as exact rationals and evaluated independently at tolerance 1e-6, 1e-10, and zero. Each check covers 104 walls, 325 pairs, and 26 positive radii.",
+        "artifact": "artifacts/evaluation_contract.md"
+      },
       "metrics": {
         "seed": -2.6359830849174704,
         "best": -2.6359830849176076,
@@ -163,6 +211,29 @@
         "prior_float_validity_margin": -3.786615465628529e-11,
         "prior_float_status": "historical-non-authoritative"
       },
+      "artifacts": {
+        "publication_manifest": "artifacts/publication-manifest.json",
+        "verifier": "artifacts/verifier.py",
+        "verification_entrypoint": "artifacts/verifier.py",
+        "certificate": "artifacts/exact.csv",
+        "verification_report": "artifacts/verification.json",
+        "local_optimum_interval": "artifacts/local_optimum_interval.json",
+        "local_optimum_certificate": "artifacts/local_optimum_certificate.json",
+        "local_optimum_verifier": "artifacts/prove_local_optimum.py",
+        "public_corpus_audit": "artifacts/public_corpus_audit.json",
+        "tolerance_certificates": [
+          "artifacts/tolerance_1e-6.csv",
+          "artifacts/tolerance_1e-10.csv",
+          "artifacts/exact.csv"
+        ],
+        "metrics": "artifacts/metrics.json",
+        "provenance": "artifacts/provenance.json",
+        "plots": [
+          "assets/tolerance-certificates.svg",
+          "assets/tolerance-rankings.svg",
+          "assets/exact-packing-contact-graph.svg"
+        ]
+      },
       "website": {
         "order": 3,
         "card_label": "03 Geometric Optimization",
@@ -186,16 +257,21 @@
         },
         "figure_captions": {},
         "score_note": "The governed score is negative exact total radius. The publication leads with sum radii and exact feasibility; the previous floating reconstruction is historical context only."
-      },
-      "path": "results/circle-packing-26-unit-square/result.json"
+      }
     },
     {
+      "schema_version": "result/v1",
       "slug": "qubit-routing-lightsabre",
       "title": "Qubit routing LightSABRE benchmark",
       "domain": "Quantum Compilation",
       "status": "published",
       "published_at": "2026-05-28",
       "summary": "A deterministic qubit-routing policy is replayed against a frozen 24-circuit LightSABRE portfolio across Q20, Willow, and Heron-FEZ topology targets. The accepted candidate reduces aggregate added CNOTs by 12,294 while keeping the topology split and case-level readout public.",
+      "problem_statement": "Find a deterministic routing policy that maps logical two-qubit interactions onto nearest-neighbor hardware coupling graphs while reducing added CNOT count against the fixed LightSABRE reference.",
+      "evaluation_contract": {
+        "summary": "Candidates are evaluated on 24 benchmark circuits crossed with Q20, Willow, and Heron-FEZ coupling graphs. The evaluator compares added CNOT count against LightSABRE, uses a lower-is-better negative weighted CNOT-reduction score, and requires deterministic replay validity across all 72 cases.",
+        "artifact": "artifacts/evaluation_contract.md"
+      },
       "metrics": {
         "seed": -8938.800000000047,
         "best": -11506.200000000026,
@@ -227,6 +303,19 @@
         "willow_relative_improvement_pct": 2.11945002988968,
         "heron_fez_relative_improvement_pct": -0.3709603508848495
       },
+      "artifacts": {
+        "candidate_code": "artifacts/accepted_candidate.rs",
+        "evolution_trace": "artifacts/evolution.json",
+        "metrics": "artifacts/metrics.json",
+        "provenance": "artifacts/provenance.json",
+        "replay": "artifacts/replay.json",
+        "score_trace": "artifacts/score-trace.json",
+        "plots": [
+          "assets/objective-curve.svg",
+          "assets/target-comparison.svg",
+          "assets/routing-readout.svg"
+        ]
+      },
       "website": {
         "order": 4,
         "card_label": "04 Quantum Compilation",
@@ -255,16 +344,21 @@
           "assets/routing-readout.svg": "Selected largest case-level savings from the replay export, sorted by absolute CNOT reduction versus LightSABRE."
         },
         "score_note": "The governed score is the negative weighted CNOT reduction versus LightSABRE, so lower is better. The report also shows positive CNOT reductions because that is the more readable routing-quality readout."
-      },
-      "path": "results/qubit-routing-lightsabre/result.json"
+      }
     },
     {
+      "schema_version": "result/v1",
       "slug": "iberian-bess-policy-challenge",
       "title": "Iberian BESS Policy Challenge",
       "domain": "Energy Optimization",
       "status": "published",
       "published_at": "2026-06-23",
       "summary": "A deterministic BESS dispatch policy is challenged against frozen Iberian day-ahead scenarios, commercial baselines, and a perfect-foresight upper bound with explicit risk and constraint readouts.",
+      "problem_statement": "Improve offline battery dispatch policy quality for OMIE day-ahead price scenarios without violating power, state-of-charge, efficiency, or terminal SOC constraints.",
+      "evaluation_contract": {
+        "summary": "Iberian BESS Policy Challenge v0.1: frozen 24-hour OMIE scenarios, commercial baselines, oracle upper bound, degradation proxy, downside metrics, and public-claim guardrails.",
+        "artifact": "artifacts/evaluation_contract.md"
+      },
       "metrics": {
         "seed": 72.544043,
         "best": 48.086813,
@@ -287,6 +381,23 @@
         "constraint_breach_count": 0.0,
         "cycles_used": 1.242257,
         "uplift_vs_quantile_dispatch_baseline_mean_eur": 20.197299
+      },
+      "artifacts": {
+        "candidate_code": "artifacts/accepted_candidate.py",
+        "evolution_trace": "artifacts/evolution.json",
+        "metrics": "artifacts/metrics.json",
+        "provenance": "artifacts/provenance.json",
+        "plots": [
+          "assets/objective-curve.svg",
+          "assets/baseline-comparison.svg",
+          "assets/dispatch-readout.svg"
+        ],
+        "evaluation_contract_json": "artifacts/evaluation_contract.json",
+        "comparison": "artifacts/comparison.json",
+        "dispatch_trace": "artifacts/dispatch_trace.json",
+        "replay": "artifacts/replay.json",
+        "score_trace": "artifacts/score-trace.json",
+        "forecast_smoke": "artifacts/forecast_smoke.json"
       },
       "website": {
         "order": 5,
@@ -316,8 +427,7 @@
           "assets/baseline-comparison.svg": "Accepted policy readout across uplift, regret, cycle-adjusted margin, downside, and constraint breaches.",
           "assets/dispatch-readout.svg": "Scenario-level dispatch trace: price, charge/discharge action, and state of charge."
         }
-      },
-      "path": "results/iberian-bess-policy-challenge/result.json"
+      }
     }
   ]
 }

@@ -1,0 +1,40 @@
+{
+  "schema_version": "result/v1",
+  "slug": "minimal-result",
+  "title": "Minimal validation fixture",
+  "domain": "Testing",
+  "status": "published",
+  "published_at": "2026-08-31",
+  "summary": "A small valid bundle used to test the public validation contract.",
+  "problem_statement": "Prove that schema and semantic failures are rejected deterministically.",
+  "evaluation_contract": {
+    "summary": "The lower-is-better score must improve from 10 to 8.",
+    "artifact": "artifacts/evaluation_contract.md"
+  },
+  "metrics": {
+    "seed": 10.0,
+    "best": 8.0,
+    "improvement": 2.0,
+    "improvement_pct": 20.0,
+    "units": "score",
+    "direction": "lower_is_better",
+    "validation_status": "fixture-pass"
+  },
+  "artifacts": {
+    "candidate_code": "artifacts/accepted_candidate.py",
+    "evolution_trace": "artifacts/evolution.json",
+    "metrics": "artifacts/metrics.json",
+    "provenance": "artifacts/provenance.json"
+  },
+  "website": {
+    "order": 99,
+    "card_label": "Fixture",
+    "card_summary": "A deterministic validation fixture.",
+    "detail_path": "results/minimal-result/",
+    "display_labels": {
+      "seed": "Seed",
+      "best": "Best",
+      "improvement": "Improvement"
+    }
+  }
+}
